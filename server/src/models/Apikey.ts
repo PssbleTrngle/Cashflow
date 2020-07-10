@@ -17,7 +17,7 @@ export default class Apikey extends BaseEntity {
     @Column()
     purpose!: string;
 
-    @ManyToOne(() => User, user => user.keys, { eager: true })
+    @ManyToOne(() => User, { eager: true })
     user!: User;
 
 }

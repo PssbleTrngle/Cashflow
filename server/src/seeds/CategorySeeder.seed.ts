@@ -1,21 +1,21 @@
 import { Connection, DeepPartial } from "typeorm";
 import { Factory, Seeder } from "typeorm-seeding";
-import { Service } from "../models/Service";
+import Category from "../models/Category";
 
-export default class ServiceSeeder implements Seeder {
+export default class CategorySeeder implements Seeder {
     public async run(_: Factory, connection: Connection) {
 
-        const services: { [K in keyof Service]?: Service[K] }[] = []
+        const categories: { [K in keyof Category]?: Category[K] }[] = []
 
         if (process.env.DEBUG === 'true') {
-            await Service.delete({});
+            await Category.delete({});
         }
 
         await connection
             .createQueryBuilder()
             .insert()
-            .into(Service)
-            .values(services)
+            .into(Category)
+            .values(categories)
             .execute()
 
     }

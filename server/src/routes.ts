@@ -1,12 +1,12 @@
 import { BaseEntity } from 'typeorm';
 import AuthController from './controller/AuthController';
 import ResourceController, { EntityStatic } from './controller/ResourceController';
-import ServiceController from './controller/ServiceController';
 import UserController from './controller/UserController';
 import Apikey from './models/Apikey';
-import Login from './models/Login';
-import { Service } from './models/Service';
 import User from './models/User';
+import Flow from './models/Flow';
+import Cron from './models/Cron';
+import Category from './models/Category';
 
 interface IRoute {
     method: string;
@@ -25,21 +25,9 @@ const Resources: {
 export const Routes: IRoute[] = [
     ...resource('users', User),
     ...resource('apikeys', Apikey, true, { all: true, one: true }),
-    ...resource('logins', Login, true, { all: true, one: true, remove: true }),
-    ...resource('services', Service),
-    {
-        method: 'post',
-        route: '/auth/:name',
-        controller: ServiceController,
-        action: 'authorize',
-        auth: true,
-    },
-    {
-        method: 'get',
-        route: '/auth/:name',
-        controller: ServiceController,
-        action: 'redirect'
-    },
+    ...resource('flows', Flow),
+    ...resource('crons', Cron),
+    ...resource('categories', Category),
     {
         method: 'post',
         route: '/api/apikey',

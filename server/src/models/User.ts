@@ -1,6 +1,5 @@
-import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import Apikey from "./Apikey";
-import Login from "./Login";
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn, OneToOne } from "typeorm";
+import Account from "./Account";
 
 @Entity()
 export default class User extends BaseEntity {
@@ -25,10 +24,7 @@ export default class User extends BaseEntity {
     @Column({ nullable: true })
     email!: string;
 
-    @OneToMany(() => Apikey, key => key.user)
-    keys!:  Promise<Apikey[]>;
-
-    @OneToMany(() => Login, login => login.user)
-    logins!: Promise<Login[]>;
+    @OneToOne(() => Account, a => a.user, { eager: true })
+    account!: Account
 
 }
